@@ -36,8 +36,8 @@
 #define BOOST_PATH "/sys/devices/system/cpu/cpufreq/interactive/boost"
 #define CPU_MAX_FREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
 //BOOST_PULSE_DURATION and BOOT_PULSE_DURATION_STR should always be in sync
-#define BOOST_PULSE_DURATION 1000000
-#define BOOST_PULSE_DURATION_STR "1000000"
+#define BOOST_PULSE_DURATION 80000
+#define BOOST_PULSE_DURATION_STR "80000"
 #define NSEC_PER_SEC 1000000000
 #define USEC_PER_SEC 1000000
 #define NSEC_PER_USEC 100
@@ -122,21 +122,22 @@ static void power_init(struct power_module *module)
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate",
                 "20000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_slack",
-                "20000");
+                "70000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/min_sample_time",
                 "40000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq",
-                "1000000");
+                "800000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load",
                 "99");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/target_loads", "70 1200000:70 1300000:75 1400000:80 1500000:99");
+    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/target_loads", "80 1000000:80 1100000:85 1200000:90 1300000:95 1400000:99");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay",
                 "80000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration",
                 BOOST_PULSE_DURATION_STR);
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/io_is_busy", "1");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/sync_freq", "1400000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load", "80");
+    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/sync_freq", "1700000");
+    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load", "95");
+    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_freq", "1500000");
 
     init_touchscreen_power_path(manta);
 }
