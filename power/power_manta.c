@@ -52,6 +52,8 @@ struct manta_power_module {
     const char *touchscreen_power_path;
 };
 
+static char* scaling_max_freq_screen_on[51];
+
 static unsigned int vsync_count;
 static struct timespec last_touch_boost;
 static bool touch_boost;
@@ -70,6 +72,27 @@ static void sysfs_write(const char *path, char *s)
     }
 
     len = write(fd, s, strlen(s));
+    if (len < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error writing to %s: %s\n", path, buf);
+    }
+
+    close(fd);
+}
+
+static void sysfs_read(const char *path, char *s)
+{
+    char buf[80];
+    int len;
+    int fd = open(path, O_RDONLY);
+
+    if (fd < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error opening %s: %s\n", path, buf);
+        return;
+    }
+
+    len = read(fd, s,8*sizeof(char));
     if (len < 0) {
         strerror_r(errno, buf, sizeof(buf));
         ALOGE("Error writing to %s: %s\n", path, buf);
@@ -119,6 +142,8 @@ static void power_init(struct power_module *module)
     struct dirent **namelist;
     int n;
 
+    sysfs_read(CPU_MAX_FREQ_PATH, scaling_max_freq_screen_on);
+
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate",
                 "20000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_slack",
@@ -150,12 +175,16 @@ static void power_set_interactive(struct power_module *module, int on)
 
     ALOGV("power_set_interactive: %d\n", on);
 
+    if(!on) {
+      sysfs_read(CPU_MAX_FREQ_PATH, scaling_max_freq_screen_on);
+   }
+
     /*
      * Lower maximum frequency when screen is off.  CPU 0 and 1 share a
      * cpufreq policy.
      */
     sysfs_write(CPU_MAX_FREQ_PATH,
-                (!on || low_power_mode) ? LOW_POWER_MAX_FREQ : NORMAL_MAX_FREQ);
+                (!on || low_power_mode) ? LOW_POWER_MAX_FREQ : scaling_max_freq_screen_on);
 
 
     sysfs_write(manta->touchscreen_power_path, on ? "Y" : "N");
