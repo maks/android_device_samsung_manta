@@ -24,9 +24,11 @@
 #include <stdlib.h>
 #include <linux/time.h>
 #include <stdbool.h>
+#include <pthread.h>
 //#define LOG_NDEBUG 0
 
 #define LOG_TAG "MantaPowerHAL"
+#include <android/log.h>
 #include <utils/Log.h>
 
 #include <hardware/hardware.h>
@@ -35,6 +37,7 @@
 #define BOOSTPULSE_PATH "/sys/devices/system/cpu/cpufreq/interactive/boostpulse"
 #define BOOST_PATH "/sys/devices/system/cpu/cpufreq/interactive/boost"
 #define CPU_MAX_FREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
+#define GOVERNOR_NAME_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
 //BOOST_PULSE_DURATION and BOOT_PULSE_DURATION_STR should always be in sync
 #define BOOST_PULSE_DURATION 80000
 #define BOOST_PULSE_DURATION_STR "80000"
@@ -52,12 +55,15 @@ struct manta_power_module {
     const char *touchscreen_power_path;
 };
 
-static char* scaling_max_freq_screen_on[51];
+static char scaling_max_freq_screen_on[51];
+static char gov_name[51];
 
 static unsigned int vsync_count;
 static struct timespec last_touch_boost;
 static bool touch_boost;
 static bool low_power_mode = false;
+
+static unsigned int last_gov_check;
 
 static void sysfs_write(const char *path, char *s)
 {
@@ -80,7 +86,7 @@ static void sysfs_write(const char *path, char *s)
     close(fd);
 }
 
-static void sysfs_read(const char *path, char *s)
+static void sysfs_read(const char *path, char *s,size_t buflen)
 {
     char buf[80];
     int len;
@@ -92,13 +98,20 @@ static void sysfs_read(const char *path, char *s)
         return;
     }
 
-    len = read(fd, s,8*sizeof(char));
+    len = read(fd, s, buflen);
     if (len < 0) {
         strerror_r(errno, buf, sizeof(buf));
         ALOGE("Error writing to %s: %s\n", path, buf);
     }
 
     close(fd);
+}
+
+void *refresh_governor(void *param) {
+    for(;;) {
+       sysfs_read(GOVERNOR_NAME_PATH, gov_name, sizeof(gov_name));
+       sleep(300);
+    }
 }
 
 static void init_touchscreen_power_path(struct manta_power_module *manta)
@@ -142,7 +155,7 @@ static void power_init(struct power_module *module)
     struct dirent **namelist;
     int n;
 
-    sysfs_read(CPU_MAX_FREQ_PATH, scaling_max_freq_screen_on);
+    sysfs_read(CPU_MAX_FREQ_PATH, scaling_max_freq_screen_on, sizeof(scaling_max_freq_screen_on));
 
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate",
                 "20000");
@@ -164,6 +177,10 @@ static void power_init(struct power_module *module)
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load", "95");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_freq", "1500000");
 
+    pthread_t thread_gov;
+
+    pthread_create(&thread_gov, NULL, refresh_governor, NULL);
+
     init_touchscreen_power_path(manta);
 }
 
@@ -176,7 +193,7 @@ static void power_set_interactive(struct power_module *module, int on)
     ALOGV("power_set_interactive: %d\n", on);
 
     if(!on) {
-      sysfs_read(CPU_MAX_FREQ_PATH, scaling_max_freq_screen_on);
+      sysfs_read(CPU_MAX_FREQ_PATH, scaling_max_freq_screen_on,sizeof(scaling_max_freq_screen_on));
    }
 
     /*
@@ -244,6 +261,9 @@ static void manta_power_hint(struct power_module *module, power_hint_t hint,
     struct timespec now, diff;
     char buf[80];
     int len;
+
+    // Break early if the current governor is not interactive and we are not in a low power state
+    if ( hint!=POWER_HINT_LOW_POWER && strcmp(gov_name, "interactive")) return;
 
     switch (hint) {
      case POWER_HINT_INTERACTION:
