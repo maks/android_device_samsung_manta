@@ -174,7 +174,7 @@ static void power_init(struct power_module *module)
                 BOOST_PULSE_DURATION_STR);
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/io_is_busy", "1");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/sync_freq", "1700000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load", "95");
+    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load", "80");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_freq", "1500000");
 
     pthread_t thread_gov;
