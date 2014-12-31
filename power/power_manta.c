@@ -114,41 +114,6 @@ void *refresh_governor(void *param) {
     }
 }
 
-static void init_touchscreen_power_path(struct manta_power_module *manta)
-{
-    char buf[80];
-    const char dir[] = "/sys/devices/platform/s3c2440-i2c.3/i2c-3/3-004a/input";
-    const char filename[] = "enabled";
-    DIR *d;
-    struct dirent *de;
-    char *path;
-    int pathsize;
-
-    d = opendir(dir);
-    if (d == NULL) {
-        strerror_r(errno, buf, sizeof(buf));
-        ALOGE("Error opening directory %s: %s\n", dir, buf);
-        return;
-    }
-    while ((de = readdir(d)) != NULL) {
-        if (strncmp("input", de->d_name, 5) == 0) {
-            pathsize = strlen(dir) + strlen(de->d_name) + sizeof(filename) + 2;
-            path = malloc(pathsize);
-            if (path == NULL) {
-                strerror_r(errno, buf, sizeof(buf));
-                ALOGE("Out of memory: %s\n", buf);
-                return;
-            }
-            snprintf(path, pathsize, "%s/%s/%s", dir, de->d_name, filename);
-            manta->touchscreen_power_path = path;
-            goto done;
-        }
-    }
-    ALOGE("Error failed to find input dir in %s\n", dir);
-done:
-    closedir(d);
-}
-
 static void power_init(struct power_module *module)
 {
     struct manta_power_module *manta = (struct manta_power_module *) module;
@@ -174,14 +139,12 @@ static void power_init(struct power_module *module)
                 BOOST_PULSE_DURATION_STR);
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/io_is_busy", "1");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/sync_freq", "1700000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load", "80");
+    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load", "95");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_freq", "1500000");
 
     pthread_t thread_gov;
 
     pthread_create(&thread_gov, NULL, refresh_governor, NULL);
-
-    init_touchscreen_power_path(manta);
 }
 
 static void power_set_interactive(struct power_module *module, int on)
@@ -209,51 +172,6 @@ static void power_set_interactive(struct power_module *module, int on)
     ALOGV("power_set_interactive: %d done\n", on);
 }
 
-static int boostpulse_open(struct manta_power_module *manta)
-{
-    char buf[80];
-
-    pthread_mutex_lock(&manta->lock);
-
-    if (manta->boostpulse_fd < 0) {
-        manta->boostpulse_fd = open(BOOSTPULSE_PATH, O_WRONLY);
-
-        if (manta->boostpulse_fd < 0) {
-            if (!manta->boostpulse_warned) {
-                strerror_r(errno, buf, sizeof(buf));
-                ALOGE("Error opening %s: %s\n", BOOSTPULSE_PATH, buf);
-                manta->boostpulse_warned = 1;
-            }
-        }
-    }
-
-    pthread_mutex_unlock(&manta->lock);
-    return manta->boostpulse_fd;
-}
-
-static struct timespec timespec_diff(struct timespec lhs, struct timespec rhs)
-{
-    struct timespec result;
-    if (rhs.tv_nsec > lhs.tv_nsec) {
-        result.tv_sec = lhs.tv_sec - rhs.tv_sec - 1;
-        result.tv_nsec = NSEC_PER_SEC + lhs.tv_nsec - rhs.tv_nsec;
-    } else {
-        result.tv_sec = lhs.tv_sec - rhs.tv_sec;
-        result.tv_nsec = lhs.tv_nsec - rhs.tv_nsec;
-    }
-    return result;
-}
-
-static int check_boostpulse_on(struct timespec diff)
-{
-    long boost_ns = (BOOST_PULSE_DURATION * NSEC_PER_USEC) % NSEC_PER_SEC;
-    long boost_s = BOOST_PULSE_DURATION / USEC_PER_SEC;
-
-    if (diff.tv_sec == boost_s)
-        return (diff.tv_nsec < boost_ns);
-    return (diff.tv_sec < boost_s);
-}
-
 static void manta_power_hint(struct power_module *module, power_hint_t hint,
                              void *data)
 {
@@ -262,45 +180,11 @@ static void manta_power_hint(struct power_module *module, power_hint_t hint,
     char buf[80];
     int len;
 
-    // Break early if the current governor is not interactive and we are not in a low power state
-    if ( hint!=POWER_HINT_LOW_POWER && (strcmp(gov_name, "interactive") != 0)) return;
-
     switch (hint) {
      case POWER_HINT_INTERACTION:
-        if (boostpulse_open(manta) >= 0) {
-            pthread_mutex_lock(&manta->lock);
-            len = write(manta->boostpulse_fd, "1", 1);
-
-            if (len < 0) {
-                strerror_r(errno, buf, sizeof(buf));
-                ALOGE("Error writing to %s: %s\n", BOOSTPULSE_PATH, buf);
-            } else {
-                clock_gettime(CLOCK_MONOTONIC, &last_touch_boost);
-                touch_boost = true;
-            }
-            pthread_mutex_unlock(&manta->lock);
-        }
-
         break;
 
      case POWER_HINT_VSYNC:
-        pthread_mutex_lock(&manta->lock);
-        if (data) {
-            if (vsync_count < UINT_MAX)
-                vsync_count++;
-        } else {
-            if (vsync_count)
-                vsync_count--;
-            if (vsync_count == 0 && touch_boost) {
-                touch_boost = false;
-                clock_gettime(CLOCK_MONOTONIC, &now);
-                diff = timespec_diff(now, last_touch_boost);
-                if (check_boostpulse_on(diff)) {
-                    sysfs_write(BOOST_PATH, "0");
-                }
-            }
-        }
-        pthread_mutex_unlock(&manta->lock);
         break;
 
     case POWER_HINT_LOW_POWER:
