@@ -263,7 +263,7 @@ static void manta_power_hint(struct power_module *module, power_hint_t hint,
     int len;
 
     // Break early if the current governor is not interactive and we are not in a low power state
-    if ( hint!=POWER_HINT_LOW_POWER && strcmp(gov_name, "interactive")) return;
+    if ( hint!=POWER_HINT_LOW_POWER && (strcmp(gov_name, "interactive") != 0)) return;
 
     switch (hint) {
      case POWER_HINT_INTERACTION:
