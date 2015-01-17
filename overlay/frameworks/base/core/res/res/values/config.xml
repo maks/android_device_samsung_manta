@@ -198,4 +198,26 @@
     <bool name="config_enableWifiDisplay">true</bool>
 
     <bool name="config_enableTranslucentDecor">true</bool>
+
+    <string-array translatable="false" name="config_globalActionsList">
+        <item>power</item>
+        <item>reboot</item>
+        <item>airplane</item>
+        <item>users</item>
+        <item>silent</item>        
+        <item>bugreport</item>
+    </string-array>
+
+    <bool name="config_powerProfilesSupported">true</bool>
+
+    <!-- Doze mode -->
+    <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
+    <integer name="config_screenBrightnessDoze">5</integer>
+    <bool name="config_dozeAfterScreenOff">true</bool>
+    <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
+    <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
+
+    <!-- Doze: force using accelerometer as pick up sensor -->
+<!--    <bool name="config_dozeUseAccelerometer">true</bool> -->
+
 </resources>
