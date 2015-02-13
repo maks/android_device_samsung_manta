@@ -24,6 +24,17 @@ def FullOTA_InstallEnd(info):
     print "no bootloader.img in target_files; skipping install"
   else:
     WriteBootloader(info, bootloader_img)
+  info.script.AppendExtra('ifelse(is_mounted("/system"), unmount("/system"));');
+  # resize system partition to get the full space of it
+  #
+  info.script.Print("Resizing  /system partition ....");
+  # run e2fsck
+  info.script.AppendExtra('run_program("/sbin/e2fsck", "-fy", "/dev/block/platform/dw_mmc.0/by-name/system");');
+  # run resize2fs
+  info.script.AppendExtra('run_program("/sbin/resize2fs", "/dev/block/platform/dw_mmc.0/by-name/system");');
+  # run e2fsck
+  info.script.AppendExtra('run_program("/sbin/e2fsck", "-fy", "/dev/block/platform/dw_mmc.0/by-name/system");');
+  info.script.Print("Resizing done!");
 
 def IncrementalOTA_VerifyEnd(info):
   # try:
