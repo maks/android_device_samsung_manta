@@ -69,3 +69,15 @@ def WriteBootloader(info, bootloader_img):
       ('samsung.manta.write_bootloader(package_extract_file('
        '"bootloader.img"), "%s", "%s");') %
       (bl_device, force_ro))
+      
+def FullOTA_PostValidate(info):
+	# resize system partition to get the full space of it
+	#
+	info.script.Print("Resizing  /system partition ....");
+	# run e2fsck
+	info.script.AppendExtra('run_program("/sbin/e2fsck", "-fy", "/dev/block/platform/dw_mmc.0/by-name/system");');
+	# run resize2fs
+	info.script.AppendExtra('run_program("/sbin/resize2fs", "/dev/block/platform/dw_mmc.0/by-name/system");');
+	# run e2fsck
+	info.script.AppendExtra('run_program("/sbin/e2fsck", "-fy", "/dev/block/platform/dw_mmc.0/by-name/system");');
+	info.script.Print("Resizing done!");
