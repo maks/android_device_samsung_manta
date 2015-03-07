@@ -90,7 +90,7 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/manta
 
 #TWRP
 TARGET_PREBUILT_KERNEL := device/samsung/manta/kernel
-TARGET_RECOVERY_UI_LIB := librecovery_ui_manta
+#TARGET_RECOVERY_UI_LIB := librecovery_ui_manta
 TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_manta
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 DEVICE_RESOLUTION := 2560x1600
@@ -102,6 +102,7 @@ BOARD_HAS_NO_REAL_SDCARD := true
 TW_INCLUDE_L_CRYPTO := true
 TW_INCLUDE_CRYPTO := true
 TW_SCREEN_BLANK_ON_BOOT := true
+TW_NO_CPU_TEMP := true
 
 #OptiPop
 ENABLE_GCCONLY := true
