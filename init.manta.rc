@@ -47,6 +47,11 @@ on post-fs-data
 	chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
 	chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
+# Make sure interactive is set with correct tunnables
+	write /sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_freq 1400000
+	write /sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load 95
+	write /sys/devices/system/cpu/cpufreq/interactive/sync_freq 1700000
+
 on boot
     # override init.rc to keep plenty of large order chunks around
     # to improve allocation times
