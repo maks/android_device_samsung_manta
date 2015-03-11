@@ -36,6 +36,11 @@ def FullOTA_InstallEnd(info):
   info.script.AppendExtra('run_program("/sbin/e2fsck", "-fy", "/dev/block/platform/dw_mmc.0/by-name/system");');
   info.script.Print("Resizing done!");
 
+def IncrementalOTA_InstallBegin(info):
+  info.script.Unmount("/system")
+  info.script.TunePartition("/system", "-O", "^has_journal")
+  info.script.Mount("/system")
+
 def IncrementalOTA_VerifyEnd(info):
   # try:
   #   target_radio_img = info.target_zip.read("RADIO/radio.img")
