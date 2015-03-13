@@ -193,13 +193,4 @@
 
     <!-- Translucent status & navigation bars perform poorly on this device -->
     <bool name="config_enableTranslucentDecor">true</bool>
-    
-    <string-array translatable="false" name="config_globalActionsList">
-        <item>power</item>
-        <item>reboot</item>
-        <item>rebootrecovery</item>
-        <item>screenshot</item>
-        <item>airplane</item>
-    </string-array>
-
 </resources>
