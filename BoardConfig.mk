@@ -108,7 +108,7 @@ TW_NO_CPU_TEMP := true
 
 #OptiPop
 ENABLE_GCCONLY := true
-GRAPHITE_OPTS := true
+GRAPHITE_OPTS := false
 USE_HOST_4_8 := true
 USE_O3_OPTIMIZATIONS := true
 KRAIT_TUNINGS := true
