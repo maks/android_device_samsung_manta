@@ -95,9 +95,6 @@ static void sysfs_read(const char *path, char *s,size_t buflen)
 static void power_init(struct power_module *module)
 {
     struct manta_power_module *manta = (struct manta_power_module *) module;
-    struct dirent **namelist;
-    int n;
-
     sysfs_read(CPU_MAX_FREQ_PATH, scaling_max_freq_screen_on, sizeof(scaling_max_freq_screen_on));
 
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/target_loads", "70 300000:70 400000:75 500000:80 800000:85 1000000:70 1100000:80 1200000:85 1300000:90 1400000:95 1500000:99");
@@ -110,8 +107,6 @@ static void power_init(struct power_module *module)
 static void power_set_interactive(struct power_module *module, int on)
 {
     struct manta_power_module *manta = (struct manta_power_module *) module;
-    char buf[80];
-    int ret;
 
     ALOGV("power_set_interactive: %d\n", on);
 
@@ -133,9 +128,6 @@ static void manta_power_hint(struct power_module *module, power_hint_t hint,
                              void *data)
 {
     struct manta_power_module *manta = (struct manta_power_module *) module;
-    struct timespec now, diff;
-    char buf[80];
-    int len;
 
     switch (hint) {
      case POWER_HINT_INTERACTION:
