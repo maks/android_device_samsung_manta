@@ -107,13 +107,14 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TW_NO_CPU_TEMP := true
 
 #OptiPop
-ENABLE_GCCONLY := true
+ENABLE_GCCONLY := false
 GRAPHITE_OPTS := false
 USE_HOST_4_8 := true
 USE_O3_OPTIMIZATIONS := true
 KRAIT_TUNINGS := true
 TARGET_USE_PIPE := true
 STRICT_ALIASING := true
+LOCAL_ENABLE_NEST := true
 
 BOARD_SEPOLICY_DIRS += \
 	device/samsung/manta/sepolicy
