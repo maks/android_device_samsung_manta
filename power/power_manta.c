@@ -98,10 +98,6 @@ static void power_init(struct power_module *module)
     sysfs_read(CPU_MAX_FREQ_PATH, scaling_max_freq_screen_on, sizeof(scaling_max_freq_screen_on));
 
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/target_loads", "70 300000:70 400000:75 500000:80 800000:85 1000000:70 1100000:80 1200000:85 1300000:90 1400000:95 1500000:99");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay","80000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/sync_freq", "1700000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load", "95");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_freq", "1400000");
 }
 
 static void power_set_interactive(struct power_module *module, int on)
