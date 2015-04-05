@@ -213,6 +213,12 @@ PRODUCT_PROPERTY_OVERRIDES := \
     ro.ota.version=$(shell date +%F | sed s@-@@g) \
     ro.ota.manifest=https://raw.githubusercontent.com/Khaon/OTA/master/manta_ota.xml
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.profiler=1 \
+    dalvik.vm.isa.arm.features=lpae,div \
+    dalvik.vm.image-dex2oat-filter=everything \
+    dalvik.vm.dex2oat-filter=everything
+
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
