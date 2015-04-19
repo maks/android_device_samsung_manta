@@ -114,7 +114,8 @@ USE_O3_OPTIMIZATIONS := true
 KRAIT_TUNINGS := true
 TARGET_USE_PIPE := true
 STRICT_ALIASING := true
-FLOOP_NEST_OPTIMIZE := true
+FLOOP_NEST_OPTIMIZE := false
+FFAST_MATH := true
 
 BOARD_SEPOLICY_DIRS += \
 	device/samsung/manta/sepolicy
