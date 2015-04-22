@@ -17,6 +17,7 @@
 # These two variables are set first, so they can be overridden
 # by BoardConfigVendor.mk
 BOARD_USES_GENERIC_AUDIO := true
+BOARD_USE_DEVICE_AUDIO_EFFECTS_CONF := true
 
 # Default values, possibly overridden by BoardConfigVendor.mk
 TARGET_BOARD_INFO_FILE := device/samsung/manta/board-info.txt
