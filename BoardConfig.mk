@@ -134,3 +134,5 @@ BOARD_SEPOLICY_UNION += \
 	vold.te
 
 MALLOC_IMPL := dlmalloc
+
+BOARD_INV_LIBMLLITE_FROM_SOURCE := true
