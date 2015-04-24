@@ -118,6 +118,9 @@ STRICT_ALIASING := true
 FLOOP_NEST_OPTIMIZE := false
 FFAST_MATH := true
 
+WITH_DEXPREOPT := false
+DISABLE_DEXPREOPT := true
+
 BOARD_SEPOLICY_DIRS += \
 	device/samsung/manta/sepolicy
 
