@@ -19,6 +19,9 @@
 BOARD_USES_GENERIC_AUDIO := true
 BOARD_USE_DEVICE_AUDIO_EFFECTS_CONF := true
 
+# Manta uses a patched hosts file
+BOARD_USE_CUSTOM_HOSTS_FILE := true
+
 # Default values, possibly overridden by BoardConfigVendor.mk
 TARGET_BOARD_INFO_FILE := device/samsung/manta/board-info.txt
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/manta/bluetooth
