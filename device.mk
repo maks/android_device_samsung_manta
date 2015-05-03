@@ -168,6 +168,10 @@ PRODUCT_PACKAGES += \
     ntfsfix \
     ntfs-3g
 
+# EXTRA's
+PRODUCT_PACKAGES += \
+    Apollo
+
 PRODUCT_PROPERTY_OVERRIDES := \
     wifi.interface=wlan0 \
     ro.opengles.version=196609 \
