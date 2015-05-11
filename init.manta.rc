@@ -66,6 +66,14 @@ on boot
 
     chmod 0444 /sys/kernel/debug/smb347-regs
 
+    # permission for D2W
+    chmod 0664 /sys/devices/platform/s3c2440-i2c.3/i2c-3/3-004a/suspended
+    chown system system /sys/devices/platform/s3c2440-i2c.3/i2c-3/3-004a/suspended
+
+    # permission for DT2W
+    chmod 0664 /sys/android_touch/suspended
+    chown system system /sys/android_touch/suspended
+
 # Set Mali power policy as Coarse demand
     write /sys/devices/platform/mali.0/power_policy coarse_demand
 

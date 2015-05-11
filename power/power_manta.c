@@ -35,7 +35,7 @@
 #include <hardware/power.h>
 
 #define CPU_MAX_FREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
-#define SCREEN_STATE_PATH "/sys/devices/platform/s3c2440-i2c.3/i2c-3/3-004a/suspended"
+#define SCREEN_STATE_PATH "sys/android_touch/suspended"
 #define LOW_POWER_MAX_FREQ "800000"
 #define NORMAL_MAX_FREQ "1700000"
 
@@ -68,7 +68,6 @@ static void sysfs_write(const char *path, char *s)
         strerror_r(errno, buf, sizeof(buf));
         ALOGE("Error writing to %s: %s\n", path, buf);
     }
-
     close(fd);
 }
 
@@ -118,7 +117,7 @@ static void power_set_interactive(struct power_module *module, int on)
     sysfs_write(CPU_MAX_FREQ_PATH,
                 (!on || low_power_mode) ? LOW_POWER_MAX_FREQ : scaling_max_freq_screen_on);
 
-    sysfs_write(SCREEN_STATE_PATH, !on ? 1 : 0);
+    sysfs_write(SCREEN_STATE_PATH, !on ? "1" : "0");
 
     ALOGV("power_set_interactive: %d done\n", on);
 }
