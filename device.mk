@@ -170,7 +170,8 @@ PRODUCT_PACKAGES += \
 
 # EXTRA's
 PRODUCT_PACKAGES += \
-    Apollo
+    Apollo \
+    Eleven
 
 PRODUCT_PROPERTY_OVERRIDES := \
     wifi.interface=wlan0 \
