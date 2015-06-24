@@ -1,0 +1,6 @@
+#!/system/bin/sh
+
+echo 533 >  /sys/devices/platform/mali.0/dvfs_upper_lock;
+echo 0 > /sys/devices/platform/mali.0/dvfs_under_lock;
+echo 350 >  /sys/devices/platform/mali.0/dvfs_gpu_boost_freq;
+echo 150 > /sys/devices/platform/mali.0/dvfs_boost_time_duration;
