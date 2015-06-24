@@ -122,6 +122,10 @@ PRODUCT_PACKAGES += \
     lights.manta \
     sensors.manta
 
+# Custom hosts file
+PRODUCT_COPY_FILES += \
+    vendor/optipop/prebuilt/etc/hosts:system/etc/hosts
+
 # Khaon's script for gpu controls
 PRODUCT_COPY_FILES += \
     device/samsung/manta/99khaon_gpu_controls:system/etc/init.d/99khaon_gpu_controls
