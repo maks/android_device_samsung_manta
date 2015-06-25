@@ -43,6 +43,9 @@ TARGET_CPU_VARIANT := cortex-a15
 TARGET_KERNEL_CONFIG := khaon_manta_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/manta
 
+# Manta use lz4 as ramdisk compressor
+BOARD_USE_LZ4_RD_COMPRESSOR := true
+
 # Enable QC's libm optimizations
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
