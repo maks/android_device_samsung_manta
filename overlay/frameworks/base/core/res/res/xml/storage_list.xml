@@ -26,7 +26,6 @@
         android:primary="true"
         android:emulated="true"
         android:mtpReserve="100" />
-
     <!-- external USB OTG storage -->
     <storage android:mountPoint="/storage/usbdisk"
         android:storageDescription="@string/storage_usb"

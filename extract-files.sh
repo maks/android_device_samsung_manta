@@ -1,4 +1,6 @@
-# Copyright 2012 The Android Open Source Project
+#!/bin/bash
+
+# Copyright (C) 2012 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,18 +14,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH := $(call my-dir)
+set -e
 
-ifeq ($(TARGET_DEVICE),manta)
+for FILE in `cat cm-proprietary-blobs.txt | grep -v "^#"`; do
+    # FILE format is src':'dest, so parse it
+    DEST=${FILE##*:}
+    saveIFS=$IFS
+    IFS=":"
+    SRC=($FILE)
+    IFS=$saveIFS
+    SRC=${SRC[0]}
 
-include $(CLEAR_VARS)
-LOCAL_MODULE := es305_fw
-LOCAL_SRC_FILES := es305_fw.bin
-LOCAL_MODULE_SUFFIX := .bin
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/firmware
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_OWNER := audience
-include $(BUILD_PREBUILT)
+    # create the dest dir if necessary
+    DIR=`dirname $DEST`
+    if [ ! -d ${DIR} ]; then
+	echo mkdir -p ${DIR}
+        mkdir -p ${DIR}
+    fi
 
-endif
+    # pull the file off the device into dest
+    echo adb pull ${SRC} ${DEST}
+    adb pull ${SRC} ${DEST}
+done
+
+./setup-makefiles.sh

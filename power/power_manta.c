@@ -96,7 +96,6 @@ static void power_init(struct power_module *module)
 {
     struct manta_power_module *manta = (struct manta_power_module *) module;
     sysfs_read(CPU_MAX_FREQ_PATH, scaling_max_freq_screen_on, sizeof(scaling_max_freq_screen_on));
-
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/target_loads", "70 300000:70 400000:75 500000:80 800000:85 1000000:70 1100000:80 1200000:85 1300000:90 1400000:95 1500000:99");
 }
 

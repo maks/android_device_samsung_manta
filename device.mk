@@ -110,7 +110,18 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     nfc_nci.bcm2079x.default \
     NfcNci \
-    Tag
+    Tag \
+    com.android.nfc_extras
+
+# Torch
+PRODUCT_PACKAGES += Torch
+
+# NFCEE access control
+ifeq ($(TARGET_BUILD_VARIANT),user)
+    NFCEE_ACCESS_PATH := device/samsung/manta/nfc/nfcee_access.xml
+else
+    NFCEE_ACCESS_PATH := device/samsung/manta/nfc/nfcee_access_debug.xml
+endif
 
 # NFC access control + feature files + configuration
 PRODUCT_COPY_FILES += \
