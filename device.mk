@@ -208,7 +208,10 @@ PRODUCT_PROPERTY_OVERRIDES := \
     ro.hwui.text_large_cache_width=2048 \
     ro.hwui.text_large_cache_height=1024 \
     ro.hwui.disable_scissor_opt=true \
-    af.fast_track_multiplier=1
+    af.fast_track_multiplier=1 \
+    ro.ota.romname=Temasek-manta \
+    ro.ota.version=$(shell date +%F | sed s@-@@g) \
+    ro.ota.manifest=https://raw.githubusercontent.com/Khaon/OTA/master/manta_ota.xml
 
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
