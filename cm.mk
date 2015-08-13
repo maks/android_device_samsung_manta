@@ -25,3 +25,6 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=mantaray \
     BUILD_FINGERPRINT=google/mantaray/manta:5.1.1/LMY47V/1836172:user/release-keys \
     PRIVATE_BUILD_DESC="mantaray-user 5.1.1 LMY47V 1836172 release-keys"
+
+# Custom unofficial build tag
+TARGET_UNOFFICIAL_BUILD_ID := by.temasek

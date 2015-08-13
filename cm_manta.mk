@@ -33,7 +33,9 @@ BOARD_USE_DEVICE_AUDIO_EFFECTS_CONF := true
 
 BOARD_USE_CUSTOM_HOSTS_FILE := true
 
-    
+# Custom unofficial build tag
+TARGET_UNOFFICIAL_BUILD_ID := by.temasek
+
 # Extra products packages
 PRODUCT_PACKAGES += \
 	Viper4Android \
