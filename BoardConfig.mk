@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-BOARD_GLOBAL_CFLAGS := --param l1-cache-size=32 --param l1-cache-line-size=64 --param l2-cache-size=1024
-BOARD_GLOBAL_CPPFLAGS := --param l1-cache-size=32 --param l1-cache-line-size=64 --param l2-cache-size=1024
+# BOARD_GLOBAL_CFLAGS := --param l1-cache-size=32 --param l1-cache-line-size=64 --param l2-cache-size=1024
+# BOARD_GLOBAL_CPPFLAGS := --param l1-cache-size=32 --param l1-cache-line-size=64 --param l2-cache-size=1024
 
 # These two variables are set first, so they can be overridden
 # by BoardConfigVendor.mk
