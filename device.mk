@@ -210,7 +210,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
     ro.hwui.disable_scissor_opt=true \
     af.fast_track_multiplier=1 \
     ro.ota.romname=Temasek-manta \
-    ro.ota.version=$(shell date +%F | sed s@-@@g) \
+    ro.ota.version=$(shell date +%F%H | sed s@-@@g) \
     ro.ota.manifest=http://46.105.101.215/khaon/roms/manta_ota.xml
 
 PRODUCT_PROPERTY_OVERRIDES += \
