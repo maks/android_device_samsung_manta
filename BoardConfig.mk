@@ -89,6 +89,7 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/manta
 BOARD_SEPOLICY_DIRS += \
 	device/samsung/manta/sepolicy
 
+USE_CLANG_PLATFORM_BUILD := true
 MALLOC_IMPL := dlmalloc
 
 BOARD_INV_LIBMLLITE_FROM_SOURCE := true
