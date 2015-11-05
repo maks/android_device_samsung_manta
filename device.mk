@@ -211,7 +211,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
     af.fast_track_multiplier=1 \
     ro.ota.romname=Temasek-manta \
     ro.ota.version=$(shell date +%F%H | sed s@-@@g) \
-    ro.ota.manifest=http://46.105.101.215/khaon/roms/manta_ota.xml
+    ro.ota.manifest=http://nickv.xyz/khaon/roms/manta_ota.xml
 
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.profiler=1 \
