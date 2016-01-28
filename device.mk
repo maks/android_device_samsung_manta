@@ -84,6 +84,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/samsung/manta/audio_policy.conf:system/etc/audio_policy.conf
 
+# Android Marshmallow boot animation
+PRODUCT_COPY_FILES += \
+	device/samsung/manta/bootanimation.zip:system/media/bootanimation.zip
+
 PRODUCT_PACKAGES := \
     libwpa_client \
     hostapd \
