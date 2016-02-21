@@ -33,6 +33,10 @@ TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a15
 
+# Define kernel config for inline building
+TARGET_KERNEL_CONFIG := khaon_manta_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/manta
+
 #Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
