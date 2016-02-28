@@ -36,8 +36,8 @@
 #define BOOST_PATH "/sys/devices/system/cpu/cpufreq/interactive/boost"
 #define CPU_MAX_FREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
 //BOOST_PULSE_DURATION and BOOT_PULSE_DURATION_STR should always be in sync
-#define BOOST_PULSE_DURATION 1000000
-#define BOOST_PULSE_DURATION_STR "1000000"
+#define BOOST_PULSE_DURATION 400000
+#define BOOST_PULSE_DURATION_STR "400000"
 #define NSEC_PER_SEC 1000000000
 #define USEC_PER_SEC 1000000
 #define NSEC_PER_USEC 100
@@ -131,7 +131,7 @@ static void power_init(struct power_module *module)
                 "99");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/target_loads", "70 1200000:70 1300000:75 1400000:80 1500000:99");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay",
-                "80000");
+                "40000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration",
                 BOOST_PULSE_DURATION_STR);
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/io_is_busy", "1");
