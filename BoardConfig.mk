@@ -36,6 +36,7 @@ TARGET_CPU_VARIANT := cortex-a15
 # Define kernel config for inline building
 TARGET_KERNEL_CONFIG := khaon_manta_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/manta
+TARGET_GCC_VERSION_ARM := 4.7
 
 #Bluetooth
 BOARD_HAVE_BLUETOOTH := true
