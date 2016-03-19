@@ -166,6 +166,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     camera.exynos5
 
+PRODUCT_PACKAGES += \
+    libchrome
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     e2fsck
