@@ -167,7 +167,7 @@ PRODUCT_PACKAGES += \
     camera.exynos5
 
 PRODUCT_PACKAGES += \
-    libchrome
+    KernelAdiutor
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
