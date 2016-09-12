@@ -93,8 +93,9 @@ BOARD_CHARGER_DISABLE_INIT_BLANK := true
 TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_manta
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/manta
 
-BOARD_SEPOLICY_DIRS += \
-	device/samsung/manta/sepolicy
+BOARD_SEPOLICY_DIRS += device/samsung/manta/sepolicy
+
+BOARD_SECCOMP_POLICY += device/samsung/manta/seccomp
 
 USE_CLANG_PLATFORM_BUILD := true
 MALLOC_SVELTE := true
