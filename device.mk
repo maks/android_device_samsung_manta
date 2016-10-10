@@ -28,6 +28,37 @@ PRODUCT_COPY_FILES := \
     device/samsung/manta/fstab.manta:root/fstab.manta \
     device/samsung/manta/ueventd.manta.rc:root/ueventd.manta.rc
 
+# AOSP Apps
+PRODUCT_PACKAGES += \
+    BluetoothExt \
+    LatinIME \
+    Launcher3 \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    masquerade \
+    OTAUpdates \
+    Stk \
+    Substratum \
+    tinymix \
+    messaging \
+    CellBroadcastReceiver \
+    Exchange2
+
+# Extra tools AOSP
+PRODUCT_PACKAGES += \
+    e2fsck \
+    mke2fs \
+    tune2fs \
+    mount.exfat \
+    fsck.exfat \
+    mkfs.exfat \
+    mkfs.f2fs \
+    fsck.f2fs \
+    fibmap.f2fs \
+    mkfs.ntfs \
+    fsck.ntfs \
+    mount.ntfs
+
 # Input device files for manta
 PRODUCT_COPY_FILES += \
     device/samsung/manta/Atmel_maXTouch_Touchscreen.idc:system/usr/idc/Atmel_maXTouch_Touchscreen.idc \
@@ -195,6 +226,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
     ro.hwui.text_large_cache_width=2048 \
     ro.hwui.text_large_cache_height=1024 \
     ro.hwui.disable_scissor_opt=true \
+    qcom.bluetooth.soc=rome \
     af.fast_track_multiplier=1
 
 # setup dalvik vm configs.

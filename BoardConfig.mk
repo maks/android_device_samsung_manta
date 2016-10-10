@@ -35,7 +35,7 @@ TARGET_CPU_VARIANT := cortex-a15
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # Define kernel config for inline building
-TARGET_KERNEL_CONFIG := khaon_manta_defconfig
+TARGET_KERNEL_CONFIG := omni_manta_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/manta
 TARGET_GCC_VERSION_ARM := 4.7
 
@@ -87,7 +87,7 @@ WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 
-BOARD_HAL_STATIC_LIBRARIES := libhealthd.manta libdumpstate.manta
+BOARD_HAL_STATIC_LIBRARIES := libdumpstate.manta
 
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
