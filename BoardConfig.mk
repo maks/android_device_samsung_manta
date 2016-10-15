@@ -32,6 +32,7 @@ TARGET_CPU_SMP := true
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a15
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # Define kernel config for inline building
 TARGET_KERNEL_CONFIG := khaon_manta_defconfig
