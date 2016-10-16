@@ -85,8 +85,8 @@ PRODUCT_COPY_FILES += \
     device/samsung/manta/audio_policy.conf:system/etc/audio_policy.conf
 
 # Android Marshmallow boot animation
-PRODUCT_COPY_FILES += \
-	device/samsung/manta/bootanimation.zip:system/media/bootanimation.zip
+# PRODUCT_COPY_FILES += \
+#	device/samsung/manta/bootanimation.zip:system/media/bootanimation.zip
 
 PRODUCT_PACKAGES := \
     libwpa_client \
@@ -215,7 +215,4 @@ PRODUCT_PACKAGES += \
 $(call inherit-product-if-exists, hardware/samsung_slsi/exynos5/exynos5.mk)
 $(call inherit-product-if-exists, vendor/samsung_slsi/exynos5/exynos5-vendor.mk)
 $(call inherit-product-if-exists, vendor/samsung/manta/device-vendor.mk)
-
-$(call inherit-product-if-exists, vendor/khaon/manta-vendor.mk)
-
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4324/device-bcm.mk)

@@ -35,11 +35,15 @@ TARGET_CPU_VARIANT := cortex-a15
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # Define kernel config for inline building
-TARGET_KERNEL_CONFIG := khaon_manta_defconfig
+KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-4.7/bin
+KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
+TARGET_KERNEL_CONFIG := omni_manta_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/manta
 TARGET_GCC_VERSION_ARM := 4.7
 
 #Bluetooth
+BCM_BLUETOOTH_MANTA_BUG := true
+
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 
@@ -100,5 +104,6 @@ BOARD_SECCOMP_POLICY += device/samsung/manta/seccomp
 
 USE_CLANG_PLATFORM_BUILD := true
 MALLOC_SVELTE := true
+# MALLOC_IMPL := dlmalloc
 
 BOARD_INV_LIBMLLITE_FROM_SOURCE := true
