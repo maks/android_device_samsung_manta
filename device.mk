@@ -74,10 +74,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/samsung/manta/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
-# Glove mode
-PRODUCT_PACKAGES += \
-    DeviceSettings
-
 # audio mixer paths
 PRODUCT_COPY_FILES += \
     device/samsung/manta/mixer_paths.xml:system/etc/mixer_paths.xml
