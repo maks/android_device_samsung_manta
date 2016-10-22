@@ -37,7 +37,7 @@ BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 # Define kernel config for inline building
 KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-4.7/bin
 KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
-TARGET_KERNEL_CONFIG := omni_manta_defconfig
+TARGET_KERNEL_CONFIG := aosp_manta_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/manta
 TARGET_GCC_VERSION_ARM := 4.7
 
