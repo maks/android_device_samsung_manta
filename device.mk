@@ -28,6 +28,15 @@ PRODUCT_COPY_FILES := \
     device/samsung/manta/fstab.manta:root/fstab.manta \
     device/samsung/manta/ueventd.manta.rc:root/ueventd.manta.rc
 
+# AOSP Apps
+PRODUCT_PACKAGES += \
+    LatinIME \
+    Launcher3 \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    masquerade \
+    Exchange2
+
 # Input device files for manta
 PRODUCT_COPY_FILES += \
     device/samsung/manta/Atmel_maXTouch_Touchscreen.idc:system/usr/idc/Atmel_maXTouch_Touchscreen.idc \
@@ -145,6 +154,9 @@ DEVICE_PACKAGE_OVERLAYS := \
     device/samsung/manta/overlay
 
 # for now include gralloc here. should come from hardware/samsung_slsi/exynos5
+PRODUCT_PACKAGES += \
+    Launcher3
+
 PRODUCT_PACKAGES += \
     gralloc.exynos5
 
