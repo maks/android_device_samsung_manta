@@ -1,2 +1,9 @@
 allow radio self:process ptrace;
+allow radio unlabeled:dir getattr;
+allow radio unlabeled:dir read;
+allow radio unlabeled:dir open;
+allow radio unlabeled:dir search;
+allow radio unlabeled:file read;
+allow radio unlabeled:file open;
+allow radio unlabeled:file getattr;
 

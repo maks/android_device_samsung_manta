@@ -1,0 +1,2 @@
+allow sdcardd unlabeled:file getattr;
+

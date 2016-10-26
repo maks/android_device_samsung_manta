@@ -1,2 +1,5 @@
 allow vold efs_file:dir {read};
 allow vold efs_file:dir { ioctl open };
+allow vold logd:dir getattr;
+allow vold logd:dir read;
+
