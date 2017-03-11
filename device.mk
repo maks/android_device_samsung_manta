@@ -122,6 +122,10 @@ PRODUCT_COPY_FILES += \
     device/samsung/manta/gps/gps.xml:system/vendor/etc/gps.xml \
     device/samsung/manta/gps/gps.manta.so:system/lib/hw/gps.manta.so
 
+# DRM
+    vendor/samsung/manta/proprietary/mediadrm/libdrmclearkeyplugin.so:system/vendor/lib/mediadrm/libdrmclearkeyplugin.so
+
+
 # NFC packages
 PRODUCT_PACKAGES += \
     nfc_nci.bcm2079x.default \
