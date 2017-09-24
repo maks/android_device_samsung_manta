@@ -40,6 +40,8 @@ TARGET_KERNEL_CONFIG := aosp_manta_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/manta
 TARGET_GCC_VERSION_ARM := 4.7
 
+DEVICE_MANIFEST_FILE := device/samsung/manta/manifest.xml
+
 #Bluetooth
 BCM_BLUETOOTH_MANTA_BUG := true
 
