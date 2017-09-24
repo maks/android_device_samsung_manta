@@ -111,6 +111,23 @@ PRODUCT_PACKAGES +=  \
     libstlport \
     libgpsd-compat
 
+# GNSS HAL
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0-impl
+
+# USB HAL
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
+
+# DRM
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl
+
+# Bluetooth HAL
+PRODUCT_PACKAGES += \
+    libbt-vendor \
+    android.hardware.bluetooth@1.0-impl
+
 # audio effects
 PRODUCT_PACKAGES += libaudience_voicefx
 PRODUCT_COPY_FILES += \
@@ -127,6 +144,7 @@ PRODUCT_COPY_FILES += \
 
 # NFC packages
 PRODUCT_PACKAGES += \
+    android.hardware.nfc@1.0-impl \
     nfc_nci.bcm2079x.default \
     NfcNci \
     Tag
@@ -138,7 +156,9 @@ PRODUCT_COPY_FILES += \
     device/samsung/manta/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf
 
 PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-impl \
     lights.manta \
+    android.hardware.sensors@1.0-impl \
     sensors.manta
 
 # We need to build the GPS interposition library for the GPS to work, also M removes
@@ -161,6 +181,10 @@ PRODUCT_PACKAGES += \
     Launcher3
 
 PRODUCT_PACKAGES += \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.memtrack@1.0-impl \
     gralloc.exynos5
 
 PRODUCT_PACKAGES += \
@@ -173,6 +197,8 @@ PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
 PRODUCT_PACKAGES += \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl \
     audio.primary.manta \
     audio.a2dp.default \
     audio.usb.default \
@@ -180,10 +206,15 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default
 
 PRODUCT_PACKAGES += \
+    android.hardware.power@1.0-impl \
     power.manta
 
 PRODUCT_PACKAGES += \
     KernelAdiutor
+
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
