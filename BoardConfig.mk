@@ -98,7 +98,7 @@ BOARD_HAL_STATIC_LIBRARIES := libhealthd.manta libdumpstate.manta
 
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
-TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_manta
+#TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_manta
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/manta
 
 BOARD_SEPOLICY_DIRS += device/samsung/manta/sepolicy
