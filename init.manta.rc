@@ -30,8 +30,6 @@ on boot
 # Set Mali power policy as Coarse demand
     write /sys/devices/platform/mali.0/power_policy coarse_demand
 
-    chown wifi wifi /sys/module/wlan/parameters/fwpath
-
 on fs
     mkdir /factory 0775 radio radio
 
