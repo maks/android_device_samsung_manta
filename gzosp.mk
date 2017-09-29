@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011 The Android Open Source Project
+# Copyright 2013 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# Boot animation
+TARGET_SCREEN_HEIGHT := 2560
+TARGET_SCREEN_WIDTH := 1536
 
-add_lunch_combo aosp_manta-userdebug
-add_lunch_combo gzosp_manta-userdebug
+$(call inherit-product, device/samsung/manta/full_manta.mk)
+
+PRODUCT_NAME := gzosp_manta
+
+# Inherit some common Gzosp stuff.
+$(call inherit-product, vendor/gzosp/config/common_full_tablet_wifionly.mk)
+
